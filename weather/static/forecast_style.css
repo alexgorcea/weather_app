@@ -66,6 +66,7 @@ ul.forecast-list {
 
 ul.forecast-list li {
   margin-bottom: 15px;
+  text-align: center;
 }
 
 #time {
