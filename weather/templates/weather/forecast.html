@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Hour Forecast for 5 Days</title>
+  <link rel="stylesheet" href="{% static 'forecast_style.css'%}">
+  <h1>{{city_name}}: 3-Hour Forecast for 5 Days</h1>
+  <form action="{% url 'weather:index' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="city" value="{{city_name}}">
+    <button type="submit">Go back to current weather</button>
+  </form>
+</head>
+<body>
+  <div id="forecast-container">
+    {% for date,forecast in forecast_data %}
+    <div class="day">
+      <h2><span id="date">{{date}}</h2>
+      <div class="forecast">
+        <ul class="forecast-list">
+          {% for info in forecast %}
+          <li><p><span id="time">{{info.time}}</span><img src="http://openweathermap.org/img/w/{{info.icon}}.png"><span id="temp_and_description">{{info.temp}}°C {{info.weather_description}}</span></p>
+              <p>Wind speed  {{info.wind_speed}}m/s</p>
+              <p>Precipitation probability : {{info.precipitation_probability}}%</p>
+          </li>
+          {% endfor %}
+      </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

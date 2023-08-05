@@ -1,0 +1,30 @@
+{% if current_weather %}
+
+<div class="weather-info">
+
+    <h2>City: <span id="city">{{city}}, {{current_weather.country}}</span></h2>
+
+    <p><span id="weather">{{current_weather.description}}</span></p>
+
+    <img src="http://openweathermap.org/img/w/{{current_weather.icon}}.png">
+
+    <p>Temperature : <span id="temperature">{{current_weather.temp}}°C</span></p>
+
+    <p>Max: <span id="temperature">{{current_weather.max}}°C</span></p>
+
+    <p>Min: <span id="temperature">{{current_weather.min}}°C</span></p>
+
+    <p>Wind speed : <span id="weather">{{current_weather.wind_speed}}m/s</span></p>
+
+    <p>Pressure: <span id="pressure">{{current_weather.pressure}} hPa</span></p>
+
+    <p>Humidity: <span id="humidity">{{current_weather.humidity}} %</span></p>
+
+</div>
+
+<form action="{% url 'weather:forecast' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="city_name" value="{{city}}">
+  <button type="submit">Show 3-hour Forecast for 5 Days</button>
+</form>
+{% endif %}
